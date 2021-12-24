@@ -1,8 +1,8 @@
 {
-  "name": "vue-list-tmp",
+  "name": "vue-list",
   "version": "1.0.0",
   "license": "MIT",
-  "main": "lib/vue-loading-twa.min.js",
+  "main": "lib/vue-list.min.js",
   "files": [
     "lib"
   ],
