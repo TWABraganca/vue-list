@@ -30,24 +30,33 @@
     </v-list>
     <div class="list-picker-actions">
       <v-btn @click="moveAllRight" :class="buttonClass" icon>
-        <v-icon v-if="!$slots.moveAllRight">last_page</v-icon>
+        <font-awesome-icon
+          v-if="!$slots.moveAllRight"
+          :icon="faAngleDoubleRight"
+        />
         <slot name="moveAllRight" />
       </v-btn>
       <v-btn @click="moveRight" class="mb-25" :class="buttonClass" icon>
-        <v-icon v-if="!$slots.moveRight">chevron_right</v-icon>
+        <font-awesome-icon v-if="!$slots.moveRight" :icon="faAngleRight" />
         <slot name="moveRight" />
       </v-btn>
       <v-btn @click="moveLeft" :class="buttonClass" icon>
-        <v-icon v-if="!$slots.moveLeft">chevron_left</v-icon>
+        <font-awesome-icon v-if="!$slots.moveLeft" :icon="faAngleLeft" />
         <slot name="moveLeft" />
       </v-btn>
       <v-btn @click="moveAllLeft" class="mb-25" :class="buttonClass" icon>
-        <v-icon v-if="!$slots.moveAllLeft">first_page</v-icon>
+        <font-awesome-icon
+          v-if="!$slots.moveAllLeft"
+          :icon="faAngleDoubleLeft"
+        />
         <slot name="moveAllLeft" />
       </v-btn>
 
       <v-btn @click="unselectAll" :class="buttonClass" icon>
-        <v-icon v-if="!$slots.unselectAll">close</v-icon>
+        <font-awesome-icon
+          v-if="!$slots.unselectAll"
+          :icon="faFilterCircleXmark"
+        />
         <slot name="unselectAll" />
       </v-btn>
     </div>
@@ -57,7 +66,7 @@
       </v-subheader>
       <v-list-item-group
         class="list-picker-panel"
-        ref="moverright"
+        ref="moverleft"
         :style="getStyles"
       >
         <v-list-item
@@ -83,14 +92,15 @@
 </template>
 
 <script>
+import { VList, VListItemGroup, VListItem, VSubheader, VBtn } from 'vuetify/lib'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
-  VList,
-  VListItemGroup,
-  VListItem,
-  VSubheader,
-  VBtn,
-  VIcon,
-} from 'vuetify/lib'
+  faFilterCircleXmark,
+  faAngleDoubleLeft,
+  faAngleLeft,
+  faAngleDoubleRight,
+  faAngleRight,
+} from '@fortawesome/free-solid-svg-icons'
 
 export default {
   name: 'VueList',
@@ -100,7 +110,7 @@ export default {
     VListItem,
     VSubheader,
     VBtn,
-    VIcon,
+    FontAwesomeIcon,
   },
   props: {
     leftItems: {
@@ -180,6 +190,11 @@ export default {
     loading: false,
     dragging: false,
     lastMovedItem: null,
+    faFilterCircleXmark,
+    faAngleDoubleLeft,
+    faAngleLeft,
+    faAngleDoubleRight,
+    faAngleRight,
   }),
   computed: {
     unselectedItems: {
