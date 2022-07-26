@@ -37,17 +37,17 @@
         <slot name="moveAllRight" />
       </v-btn>
       <v-btn @click="moveRight" class="mb-25" :class="buttonClass" icon>
-        <font-awesome-icon v-if="!$slots.moveRight" :icon="faAngleRight fa-lg" />
+        <font-awesome-icon v-if="!$slots.moveRight" :icon="faAngleRight fa-2xl" />
         <slot name="moveRight" />
       </v-btn>
       <v-btn @click="moveLeft" :class="buttonClass" icon>
-        <font-awesome-icon v-if="!$slots.moveLeft" :icon="faAngleLeft fa-lg" />
+        <font-awesome-icon v-if="!$slots.moveLeft" :icon="faAngleLeft fa-2xl" />
         <slot name="moveLeft" />
       </v-btn>
-      <v-btn @click="moveAllLeft" class="mb-25" :class="buttonClass fa-lg" icon>
+      <v-btn @click="moveAllLeft" class="mb-25" :class="buttonClass fa-2xl" icon>
         <font-awesome-icon
           v-if="!$slots.moveAllLeft"
-          :icon="faAngleDoubleLeft"
+          :icon="faAngleDoubleLeft fa-2xl"
         />
         <slot name="moveAllLeft" />
       </v-btn>
@@ -55,7 +55,7 @@
       <v-btn @click="unselectAll" :class="buttonClass" icon>
         <font-awesome-icon
           v-if="!$slots.unselectAll"
-          :icon="faFilterCircleXmark fa-lg"
+          :icon="faFilterCircleXmark fa-2xl"
         />
         <slot name="unselectAll" />
       </v-btn>
