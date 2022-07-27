@@ -194,7 +194,7 @@ export default {
     faAngleDoubleLeft,
     faAngleLeft,
     faAngleDoubleRight,
-    faAngleRight fa-2xl,
+    faAngleRight,
   }),
   computed: {
     unselectedItems: {
