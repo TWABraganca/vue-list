@@ -29,10 +29,10 @@
       </v-list-item-group>
     </v-list>
     <div class="list-picker-actions">
-      <v-btn @click="moveAllRight" :class="buttonClass  fa-2xl" icon>
+      <v-btn @click="moveAllRight" :class="buttonClass" icon>
         <font-awesome-icon
           v-if="!$slots.moveAllRight"
-          :icon="faAngleDoubleRight fa-2xl"
+          :icon="faAngleDoubleRight fa2xl"
         />
         <slot name="moveAllRight" />
       </v-btn>
