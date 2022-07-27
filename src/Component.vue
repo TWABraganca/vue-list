@@ -99,7 +99,7 @@ import {
   faAngleDoubleLeft,
   faAngleLeft,
   faAngleDoubleRight,
-  faAngleRight fa-2xl,
+  faAngleRight,
 } from '@fortawesome/free-solid-svg-icons'
 
 export default {
