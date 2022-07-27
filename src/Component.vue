@@ -32,7 +32,7 @@
       <v-btn @click="moveAllRight" :class="buttonClass" icon>
         <font-awesome-icon
           v-if="!$slots.moveAllRight"
-          :icon="faAngleDoubleRight"
+          :icon="faAngleDoubleRight fa-2xl"
         />
         <slot name="moveAllRight" />
       </v-btn>
