@@ -4,6 +4,15 @@
       <v-subheader class="list-picker-title" :class="getTitleClasses">
         {{ textSubstr(titleLeft, titleSubstr) }}
       </v-subheader>
+      <VTextField
+        hide-details
+        outlined
+        dense
+        placeholder="Procurar..."
+        v-if="showSearchSource"
+        v-model="searchSource"
+        style="margin: 8px"
+      ></VTextField>
       <v-list-item-group
         class="list-picker-panel"
         ref="moverright"
@@ -11,7 +20,7 @@
       >
         <v-list-item
           class="list-picker-item"
-          v-for="item in unselectedItems"
+          v-for="item in unselectedItemsFiltered || unselectedItems"
           :key="item[contentKey]"
           :class="[
             getContentClasses,
@@ -64,6 +73,15 @@
       <v-subheader class="list-picker-title" :class="getTitleClasses">
         {{ textSubstr(titleRight, titleSubstr) }}
       </v-subheader>
+      <VTextField
+        hide-details
+        outlined
+        dense
+        placeholder="Procurar..."
+        v-if="showSearchDestination"
+        v-model="searchDestination"
+        style="margin: 8px"
+      ></VTextField>
       <v-list-item-group
         class="list-picker-panel"
         ref="moverleft"
@@ -71,7 +89,7 @@
       >
         <v-list-item
           class="list-picker-item"
-          v-for="item in selectedItems"
+          v-for="item in selectedItemsFiltered || selectedItems"
           :key="item[contentKey]"
           :class="[
             getContentClasses,
@@ -92,7 +110,14 @@
 </template>
 
 <script>
-import { VList, VListItemGroup, VListItem, VSubheader, VBtn } from 'vuetify/lib'
+import {
+  VList,
+  VListItemGroup,
+  VListItem,
+  VSubheader,
+  VBtn,
+  VTextField,
+} from 'vuetify/lib'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
   faFilterCircleXmark,
@@ -111,6 +136,7 @@ export default {
     VSubheader,
     VBtn,
     FontAwesomeIcon,
+    VTextField,
   },
   props: {
     leftItems: {
@@ -185,6 +211,14 @@ export default {
       type: String,
       default: '',
     },
+    showSearchDestination: {
+      type: Boolean,
+      default: false,
+    },
+    showSearchSource: {
+      type: Boolean,
+      default: false,
+    },
   },
   data: () => ({
     loading: false,
@@ -195,6 +229,10 @@ export default {
     faAngleLeft,
     faAngleDoubleRight,
     faAngleRight,
+    selectedItemsFiltered: null,
+    searchDestination: null,
+    unselectedItemsFiltered: null,
+    searchSource: null,
   }),
   computed: {
     unselectedItems: {
@@ -355,6 +393,28 @@ export default {
       }
 
       this.unselectAll()
+    },
+  },
+  watch: {
+    searchDestination(value) {
+      if (!value) {
+        this.selectedItemsFiltered = null
+        return
+      }
+
+      this.selectedItemsFiltered = this.selectedItems.filter((item) =>
+        item.content.includes(value)
+      )
+    },
+    searchSource(value) {
+      if (!value) {
+        this.unselectedItemsFiltered = null
+        return
+      }
+
+      this.unselectedItemsFiltered = this.unselectedItems.filter((item) =>
+        item.content.includes(value)
+      )
     },
   },
 }
