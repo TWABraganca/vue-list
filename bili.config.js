@@ -2,7 +2,7 @@ const vue = require('rollup-plugin-vue')
 
 module.exports = {
   // banner: true,
-  format: ['cjs-min', 'umd-min'],
+  format: ['umd-min', 'cjs-min'],
   // css: true,
   plugins: [vue({ css: true })],
   outDir: 'lib',
