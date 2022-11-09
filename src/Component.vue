@@ -14,6 +14,74 @@
         style="margin: 8px"
       ></VTextField>
       <v-list-item-group
+        v-if="expandPanel"
+        class="list-picker-panel"
+        ref="moverright"
+        :style="getStyles"
+      >
+        <v-expansion-panels v-model="openedExpansionPanelLeft">
+          <v-expansion-panel
+            class="list-picker-item"
+            v-for="(items, i) in unselectedItemsFiltered || unselectedItems"
+            :key="i"
+            :class="[
+              getContentClasses,
+              {
+                'list-picker-selected': items.isSelected,
+                'list-picker-read-only': items.isReadOnly,
+              },
+            ]"
+          >
+            <div
+              @click="
+                selectUnselectItem(
+                  $event,
+                  items,
+                  unselectedItemsFiltered || unselectedItems
+                )
+              "
+              @mousemove="
+                selectItem(items, unselectedItemsFiltered || unselectedItems)
+              "
+              @mousedown="startDrag"
+              class="v-expansion-panel-header"
+              style="cursor: pointer; user-select: none"
+            >
+              {{ items.header }}
+              <v-spacer></v-spacer>
+              <v-btn
+                @click="
+                  openedExpansionPanelLeft === i
+                    ? (openedExpansionPanelLeft = null)
+                    : (openedExpansionPanelLeft = i)
+                "
+                class="expansion-panel-header-icon"
+                icon
+              >
+                <font-awesome-icon :icon="faChevronDown" />
+              </v-btn>
+            </div>
+            <v-expansion-panel-content>
+              <v-list-item
+                class="list-item"
+                v-for="item in items.items"
+                :key="item[contentKey]"
+                :class="[
+                  getContentClasses,
+                  {
+                    'list-picker-selected': item.isSelected,
+                    'list-picker-read-only': item.isReadOnly,
+                  },
+                ]"
+              >
+                {{ textSubstr(item[contentAttr], contentSubstr) }}
+              </v-list-item>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+      </v-list-item-group>
+      <v-list-item-group
+        v-if="!expandPanel"
         class="list-picker-panel"
         ref="moverright"
         :style="getStyles"
@@ -29,8 +97,16 @@
               'list-picker-read-only': item.isReadOnly,
             },
           ]"
-          @click="selectUnselectItem(item, unselectedItems)"
-          @mousemove="selectItem(item, unselectedItems)"
+          @click="
+            selectUnselectItem(
+              $event,
+              item,
+              unselectedItemsFiltered || unselectedItems
+            )
+          "
+          @mousemove="
+            selectItem(item, unselectedItemsFiltered || unselectedItems)
+          "
           @mousedown="startDrag"
         >
           {{ textSubstr(item[contentAttr], contentSubstr) }}
@@ -83,6 +159,74 @@
         style="margin: 8px"
       ></VTextField>
       <v-list-item-group
+        v-if="expandPanel"
+        class="list-picker-panel"
+        ref="moverleft"
+        :style="getStyles"
+      >
+        <v-expansion-panels v-model="openedExpansionPanelRight">
+          <v-expansion-panel
+            class="list-picker-item"
+            v-for="(items, i) in selectedItemsFiltered || selectedItems"
+            :key="i"
+            :class="[
+              getContentClasses,
+              {
+                'list-picker-selected': items.isSelected,
+                'list-picker-read-only': items.isReadOnly,
+              },
+            ]"
+          >
+            <div
+              @click="
+                selectUnselectItem(
+                  $event,
+                  items,
+                  selectedItemsFiltered || selectedItems
+                )
+              "
+              @mousemove="
+                selectItem(items, selectedItemsFiltered || selectedItems)
+              "
+              @mousedown="startDrag"
+              class="v-expansion-panel-header"
+              style="cursor: pointer; user-select: none"
+            >
+              {{ items.header }}
+              <v-spacer></v-spacer>
+              <v-btn
+                @click="
+                  openedExpansionPanelRight === i
+                    ? (openedExpansionPanelRight = null)
+                    : (openedExpansionPanelRight = i)
+                "
+                class="expansion-panel-header-icon"
+                icon
+              >
+                <font-awesome-icon :icon="faChevronDown" />
+              </v-btn>
+            </div>
+            <v-expansion-panel-content>
+              <v-list-item
+                class="list-item"
+                v-for="item in items.items"
+                :key="item[contentKey]"
+                :class="[
+                  getContentClasses,
+                  {
+                    'list-picker-selected': item.isSelected,
+                    'list-picker-read-only': item.isReadOnly,
+                  },
+                ]"
+              >
+                {{ textSubstr(item[contentAttr], contentSubstr) }}
+              </v-list-item>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+      </v-list-item-group>
+      <v-list-item-group
+        v-if="!expandPanel"
         class="list-picker-panel"
         ref="moverleft"
         :style="getStyles"
@@ -98,8 +242,14 @@
               'list-picker-read-only': item.isReadOnly,
             },
           ]"
-          @click="selectUnselectItem(item, selectedItems)"
-          @mousemove="selectItem(item, selectedItems)"
+          @click="
+            selectUnselectItem(
+              $event,
+              item,
+              selectedItemsFiltered || selectedItems
+            )
+          "
+          @mousemove="selectItem(item, selectedItemsFiltered || selectedItems)"
           @mousedown="startDrag"
         >
           {{ textSubstr(item[contentAttr], contentSubstr) }}
@@ -117,6 +267,10 @@ import {
   VSubheader,
   VBtn,
   VTextField,
+  VExpansionPanels,
+  VExpansionPanel,
+  VExpansionPanelContent,
+  VSpacer,
 } from 'vuetify/lib'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
@@ -125,6 +279,7 @@ import {
   faAngleLeft,
   faAngleDoubleRight,
   faAngleRight,
+  faChevronDown,
 } from '@fortawesome/free-solid-svg-icons'
 
 export default {
@@ -137,6 +292,10 @@ export default {
     VBtn,
     FontAwesomeIcon,
     VTextField,
+    VExpansionPanels,
+    VExpansionPanel,
+    VExpansionPanelContent,
+    VSpacer,
   },
   props: {
     leftItems: {
@@ -219,6 +378,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    expandPanel: {
+      type: Boolean,
+      default: false,
+    },
   },
   data: () => ({
     loading: false,
@@ -229,10 +392,13 @@ export default {
     faAngleLeft,
     faAngleDoubleRight,
     faAngleRight,
+    faChevronDown,
     selectedItemsFiltered: null,
     searchDestination: null,
     unselectedItemsFiltered: null,
     searchSource: null,
+    openedExpansionPanelLeft: null,
+    openedExpansionPanelRight: null,
   }),
   computed: {
     unselectedItems: {
@@ -300,8 +466,13 @@ export default {
     stopDrag() {
       this.dragging = false
     },
-    selectUnselectItem(item, items) {
-      this.setItem(item, items, !item.isSelected)
+    selectUnselectItem(e, item, items) {
+      if (
+        e.target.classList.contains('v-expansion-panel-header') ||
+        e.target.classList.contains('list-picker-item')
+      ) {
+        this.setItem(item, items, !item.isSelected)
+      }
     },
     setItem(item, items, val) {
       let itemBase = item
@@ -323,16 +494,16 @@ export default {
     },
     moveRight() {
       this.moveOne(
-        this.unselectedItems,
-        this.selectedItems,
+        this.unselectedItems || this.unselectedItemsFiltered,
+        this.selectedItems || this.selectedItemsFiltered,
         'moverleft',
         'move-right'
       )
     },
     moveLeft() {
       this.moveOne(
-        this.selectedItems,
-        this.unselectedItems,
+        this.selectedItems || this.selectedItemsFiltered,
+        this.unselectedItems || this.unselectedItemsFiltered,
         'moverright',
         'move-left'
       )
@@ -402,9 +573,15 @@ export default {
         return
       }
 
-      this.selectedItemsFiltered = this.selectedItems.filter((item) =>
-        item.content.includes(value)
-      )
+      if (this.expandPanel) {
+        this.selectedItemsFiltered = this.selectedItems.filter((item) =>
+          item.header.includes(value)
+        )
+      } else {
+        this.selectedItemsFiltered = this.selectedItems.filter((item) =>
+          item.content.includes(value)
+        )
+      }
     },
     searchSource(value) {
       if (!value) {
@@ -412,9 +589,15 @@ export default {
         return
       }
 
-      this.unselectedItemsFiltered = this.unselectedItems.filter((item) =>
-        item.content.includes(value)
-      )
+      if (this.expandPanel) {
+        this.unselectedItemsFiltered = this.unselectedItems.filter((item) =>
+          item.header.includes(value)
+        )
+      } else {
+        this.unselectedItemsFiltered = this.unselectedItems.filter((item) =>
+          item.content.includes(value)
+        )
+      }
     },
   },
 }
@@ -440,6 +623,7 @@ export default {
   overflow: auto;
   display: flex;
   flex-direction: column;
+  max-width: 48%;
 }
 .vue-list-picker .list-picker-panel {
   min-height: 400px;
@@ -487,5 +671,14 @@ export default {
 }
 .vue-list-picker .text-center {
   text-align: center;
+}
+.vue-list-picker .expansion-panel-header-icon {
+  flex: none;
+  position: absolute;
+  right: 16px;
+}
+
+.vue-list-picker .list-item {
+  pointer-events: none;
 }
 </style>
