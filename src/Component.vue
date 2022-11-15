@@ -517,8 +517,8 @@ export default {
       this.$forceUpdate()
     },
     unselectAll() {
-      this.unselect(this.unselectedItems)
-      this.unselect(this.selectedItems)
+      this.unselect(this.unselectedItemsFiltered || this.unselectedItems)
+      this.unselect(this.selectedItemsFiltered || this.selectedItems)
       this.$emit('unselect-all')
     },
     moveOne(firstArray, secondArray, refsName, event) {
@@ -544,12 +544,24 @@ export default {
       this.unselectAll()
     },
     moveAllRight() {
-      this.moveAll(this.unselectedItems, this.selectedItems)
-      this.$emit('move-all-right', this.selectedItems)
+      this.moveAll(
+        this.unselectedItemsFiltered || this.unselectedItems,
+        this.selectedItemsFiltered || this.selectedItems
+      )
+      this.$emit(
+        'move-all-right',
+        this.selectedItemsFiltered || this.selectedItems
+      )
     },
     moveAllLeft() {
-      this.moveAll(this.selectedItems, this.unselectedItems)
-      this.$emit('move-all-left', this.unselectedItems)
+      this.moveAll(
+        this.selectedItemsFiltered || this.selectedItems,
+        this.unselectedItemsFiltered || this.unselectedItems
+      )
+      this.$emit(
+        'move-all-left',
+        this.unselectedItemsFiltered || this.unselectedItems
+      )
     },
     moveAll(firstArray, secondArray) {
       let tmp = Array.from(firstArray)
