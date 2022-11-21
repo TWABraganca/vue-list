@@ -1,10 +1,10 @@
 {
   "name": "vue-list",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "license": "MIT",
-  "main": "lib/vue-list.cjs.min.js",
+  "main": "dist/vue-list.es.js",
   "files": [
-    "lib"
+    "dist"
   ],
   "scripts": {
     "serve": "vite preview",
