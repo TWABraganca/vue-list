@@ -1,3 +1,4 @@
+import './style.css';
 import C from "vue";
 const gt = C.extend().extend({
   name: "themeable",

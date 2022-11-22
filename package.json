@@ -1,6 +1,6 @@
 {
   "name": "@twab/vue-list",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "license": "MIT",
   "main": "dist/vue-list.es.js",
   "files": [
@@ -12,7 +12,6 @@
     "dev": "vite"
   },
   "dependencies": {
-    "@cxing/vitejs-plugin-inject-css": "^0.0.2",
     "@vitejs/plugin-vue2": "^2.0.1",
     "core-js": "^3.6.5",
     "vite": "^3.2.4",
@@ -34,6 +33,7 @@
     "rollup-plugin-vue": "^4.6.1",
     "sass": "^1.25.0",
     "sass-loader": "^7.2.0",
+    "vite-plugin-libcss": "^1.0.5",
     "vite-plugin-vue2": "^2.0.2",
     "vue-template-compiler": "^2.5.22"
   },

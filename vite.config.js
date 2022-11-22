@@ -1,7 +1,7 @@
 const path = require('path')
 const { defineConfig } = require('vite')
 import vue from '@vitejs/plugin-vue2'
-import injectCss from '@cxing/vitejs-plugin-inject-css'
+import libCss from 'vite-plugin-libcss'
 
 export default defineConfig({
   build: {
@@ -19,5 +19,5 @@ export default defineConfig({
       },
     },
   },
-  plugins: [vue(), injectCss()],
+  plugins: [vue(), libCss()],
 })
