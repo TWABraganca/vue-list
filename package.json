@@ -12,6 +12,7 @@
     "dev": "vite"
   },
   "dependencies": {
+    "@cxing/vitejs-plugin-inject-css": "^0.0.2",
     "@vitejs/plugin-vue2": "^2.0.1",
     "core-js": "^3.6.5",
     "vite": "^3.2.4",
