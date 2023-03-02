@@ -2,19 +2,18 @@
   "name": "@twab/vue-list",
   "version": "1.3.2",
   "license": "MIT",
-  "main": "dist/vue-list.es.js",
+  "main": "lib/vue-list.es.js",
   "files": [
-    "dist"
+    "lib"
   ],
   "scripts": {
-    "serve": "vite preview",
-    "build": "vite build",
-    "dev": "vite"
+    "serve": "vue-cli-service serve example/main.js",
+    "build": "bili src/main.js"
   },
   "dependencies": {
     "@vitejs/plugin-vue2": "^2.0.1",
+    "bili": "^5.0.5",
     "core-js": "^3.6.5",
-    "vite": "^3.2.4",
     "vue": "^2.7.8",
     "vuetify": "^2.6.12"
   },
@@ -33,8 +32,6 @@
     "rollup-plugin-vue": "^4.6.1",
     "sass": "^1.25.0",
     "sass-loader": "^7.2.0",
-    "vite-plugin-libcss": "^1.0.5",
-    "vite-plugin-vue2": "^2.0.2",
     "vue-template-compiler": "^2.5.22"
   },
   "eslintConfig": {
