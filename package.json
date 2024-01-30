@@ -1,8 +1,8 @@
 {
   "name": "@twab/vue-list",
-  "version": "1.3.2",
+  "version": "1.3.4",
   "license": "MIT",
-  "main": "lib/vue-list.es.js",
+  "main": "lib/vue-list.umd.js",
   "files": [
     "lib"
   ],
