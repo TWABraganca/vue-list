@@ -6,7 +6,8 @@
         :right-items="rightItems1"
         show-search-destination
         show-search-source
-        expand-panel
+        :searchLabel="searchLabel"
+        expandPanel
       >
       </vue-list>
     </v-main>
@@ -18,10 +19,22 @@ export default {
   name: 'App',
 
   data: () => ({
+    searchLabel: 'Procurar...',
     leftItems: [
-      { key: 1, content: 'teste 1' },
-      { key: 3, content: 'teste 2' },
-      { key: 4, content: 'teste 3' },
+      { key: 0, content: 'david.dias@twa.pt', id: 1 },
+      { key: 1, content: 'isabelle.correa@twa.pt', id: 12 },
+      { key: 2, content: 'leandro.alexandre@twa.pt', id: 13 },
+      { key: 3, content: 'luisfbatista@markdata.pt', id: 17 },
+      { key: 4, content: 'recognition@markdata.pt', id: 21 },
+      { key: 5, content: 'demo@markdata.pt', id: 22 },
+      { key: 6, content: 'Prica', id: 62 },
+      { key: 7, content: 'hugo@markdata.pt', id: 77 },
+      { key: 8, content: 'joao.cardoso@markdata.pt', id: 79 },
+      { key: 9, content: 'eventsrecognition@gmail.com', id: 82 },
+      { key: 10, content: 'Tiago', id: 96 },
+      { key: 11, content: 'Pedro', id: 97 },
+      { key: 12, content: 'recognition@twa.pt', id: 109 },
+      { key: 13, content: null, id: 113 },
     ],
     rightItems: [
       { key: 2, content: 'read-only', isReadOnly: true },

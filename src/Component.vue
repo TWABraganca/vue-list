@@ -8,7 +8,7 @@
         hide-details
         outlined
         dense
-        placeholder="Procurar..."
+        :placeholder="searchLabel"
         v-if="showSearchSource"
         v-model="searchSource"
         style="margin: 8px"
@@ -153,7 +153,7 @@
         hide-details
         outlined
         dense
-        placeholder="Procurar..."
+        :placeholder="searchLabel"
         v-if="showSearchDestination"
         v-model="searchDestination"
         style="margin: 8px"
@@ -382,6 +382,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    searchLabel: {
+      type: String,
+      default: 'Search...',
+    },
   },
   data: () => ({
     loading: false,
@@ -587,11 +591,11 @@ export default {
 
       if (this.expandPanel) {
         this.selectedItemsFiltered = this.selectedItems.filter((item) =>
-          item.header.includes(value)
+          item?.header?.includes(value)
         )
       } else {
         this.selectedItemsFiltered = this.selectedItems.filter((item) =>
-          item.content.includes(value)
+          item?.content?.includes(value)
         )
       }
     },
@@ -603,11 +607,11 @@ export default {
 
       if (this.expandPanel) {
         this.unselectedItemsFiltered = this.unselectedItems.filter((item) =>
-          item.header.includes(value)
+          item?.header?.includes(value)
         )
       } else {
         this.unselectedItemsFiltered = this.unselectedItems.filter((item) =>
-          item.content.includes(value)
+          item?.content?.includes(value)
         )
       }
     },
